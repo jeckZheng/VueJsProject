@@ -80,8 +80,8 @@
             <div class="wrapper clearfix">
                 <div class="wrap-box">
                     <ul class="img-list">
-                        <li v-for="(i, index) in item.datas" :key="i.cataID">
-                            <a href="#/site/goodsinfo/87" class="">
+                        <li v-for="(i, index) in item.datas" :key="i.artID">
+                           <router-link :to="'/goodsInfo/'+i.artID">
                                 <div class="img-box">
                                     <img :src="i.img_url" v-lazy="i.img_url">
                                 </div>
@@ -96,7 +96,7 @@
                                         </span>
                                     </p>
                                 </div>
-                            </a>
+                          </router-link>
                         </li>
                     </ul>
                 </div>
@@ -108,8 +108,6 @@
 <script>
 //引入axios
 import axios from 'axios'
-//引入moment.js模块
-import moment from 'moment'
 //引入element-ui模块
 import elementui from 'element-ui'
 export default {
@@ -122,11 +120,11 @@ export default {
             goodsList:[]
         }
     },
-    filters:{
-        shaixuan(val){
-            moment(val).format("YYYY年MM月DD日")
-        }
-    },
+    // filters:{
+    //     shaixuan(val){
+    //         moment(val).format("YYYY年MM月DD日")
+    //     }
+    // },
     //生命周期函数
     beforeMount() {
        axios.get("http://47.106.148.205:8899/site/goods/gettopdata/goods")
@@ -141,7 +139,7 @@ export default {
       });
       axios.get('http://47.106.148.205:8899/site/goods/getgoodsgroup')
       .then(res=>{
-          console.log(res);
+        //   console.log(res);
           this. goodsList=res.data.message
       })
       .catch(res=>{
